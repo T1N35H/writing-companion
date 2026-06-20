@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Writing Companion</title>
+  <meta charset="UTF-8">
+</head>
+<body style="font-family: Arial; max-width: 800px; margin: auto; padding: 20px;">
+
+<h1>✍️ Writing Companion</h1>
+
+<p>Write 2–3 sentences about your dream holiday.</p>
+
+<textarea id="studentText" rows="8" style="width:100%;"></textarea>
+
+<br><br>
+
+<button onclick="getFeedback()">Get Feedback</button>
+
+<h2>Feedback</h2>
+
+<div id="feedback">
+Your feedback will appear here.
+</div>
+
+<script>
+function getFeedback() {
+    const text = document.getElementById("studentText").value;
+
+    document.getElementById("feedback").innerHTML =
+    "Student writing received:<br><br>" + text +
+    "<br><br>Gemini feedback will appear here.";
+}
+</script>
+
+</body>
+</html>
