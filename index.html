@@ -23,12 +23,31 @@ Your feedback will appear here.
 </div>
 
 <script>
-function getFeedback() {
-    const text = document.getElementById("studentText").value;
+async function getFeedback() {
+
+    const text =
+      document.getElementById("studentText").value;
 
     document.getElementById("feedback").innerHTML =
-    "Student writing received:<br><br>" + text +
-    "<br><br>Gemini feedback will appear here.";
+      "Generating feedback...";
+
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbwjUCgq7tfxJER3iu_8PVdkO-BBIyRl_jL3S59wT6b9cjt-VUIP2dle4tLobfOxqtsu/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          text: text
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    document.getElementById("feedback").innerHTML =
+      data.feedback.replace(/\n/g, "<br>");
 }
 </script>
 
