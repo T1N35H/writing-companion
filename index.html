@@ -8,14 +8,15 @@
 
 <h1>✍️ Writing Companion</h1>
 
-<p>Write 2–3 sentences about your dream holiday.</p>
-
+<p>
+Write 2–3 sentences about your dream holiday.
+Describe the destination and explain why you would like to visit it.
+</p>
 <textarea id="studentText" rows="8" style="width:100%;"></textarea>
 
 <br><br>
 
-<button onclick="getFeedback()">Get Feedback</button>
-
+<button onclick="getFeedback()">✨ Get Writing Feedback</button>
 <h2>Feedback</h2>
 
 <div id="feedback">
@@ -23,31 +24,40 @@ Your feedback will appear here.
 </div>
 
 <script>
-async function getFeedback() {
+function getFeedback() {
 
     const text =
       document.getElementById("studentText").value;
 
+    let feedback = "";
+
+    if (text.length < 20) {
+
+        feedback =
+`Grammar:
+Try writing a longer response.
+
+Vocabulary:
+Add more details about the destination.
+
+Improved Version:
+I would like to visit Tokyo because I enjoy shopping and trying delicious food.`;
+
+    } else {
+
+        feedback =
+`Grammar:
+Remember to check your sentence structure and verb forms.
+
+Vocabulary:
+Try using descriptive words such as exciting, beautiful, delicious, or relaxing.
+
+Improved Version:
+I would like to visit Tokyo because I enjoy shopping, trying delicious food, and exploring the exciting city.`;
+    }
+
     document.getElementById("feedback").innerHTML =
-      "Generating feedback...";
-
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbwjUCgq7tfxJER3iu_8PVdkO-BBIyRl_jL3S59wT6b9cjt-VUIP2dle4tLobfOxqtsu/exec",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          text: text
-        })
-      }
-    );
-
-    const data = await response.json();
-
-    document.getElementById("feedback").innerHTML =
-      data.feedback.replace(/\n/g, "<br>");
+      feedback.replace(/\n/g, "<br>");
 }
 </script>
 
